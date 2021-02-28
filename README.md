@@ -18,6 +18,7 @@ In your settings.gradle(.kts), add:
 ```gradle
 pluginManagement {
     repositories {
+        mavenCentral()
         mavenLocal()
     }
 }
