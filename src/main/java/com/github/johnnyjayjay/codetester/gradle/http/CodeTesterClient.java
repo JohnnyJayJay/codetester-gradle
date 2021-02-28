@@ -6,6 +6,7 @@ import com.github.johnnyjayjay.codetester.gradle.http.model.CheckResponseDeseria
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
+import okhttp3.Request;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -41,7 +42,8 @@ public class CodeTesterClient {
     }
 
     private <T> T attemptRequest(Function<String, Call<T>> action, boolean retry) throws IOException {
-        var response = action.apply("Bearer " + accessToken).execute();
+        Call<T> call = action.apply("Bearer " + accessToken);
+        var response = call.execute();
         if (response.code() == 401 && retry) {
             refreshAccessToken();
             return attemptRequest(action, false);

@@ -4,6 +4,7 @@ import com.github.johnnyjayjay.codetester.gradle.http.model.Category;
 import com.github.johnnyjayjay.codetester.gradle.http.model.CheckResponse;
 import com.github.johnnyjayjay.codetester.gradle.http.model.Token;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public interface CodeTesterService {
 
-    MediaType MULTIPART_TYPE = MediaType.parse("multipart/form-data");
+    MediaType MULTIPART_TYPE = MediaType.parse("application/zip");
 
     @FormUrlEncoded
     @POST("login")
@@ -34,12 +35,13 @@ public interface CodeTesterService {
     Call<CheckResponse> testZipFile(
             @Header("Authorization") String bearerToken,
             @Path("categoryId") long categoryId,
-            @Part("file") RequestBody file
+            @Part MultipartBody.Part file
     );
 
     default Call<CheckResponse> testZipFile(String bearerToken, long categoryId, File file) {
-        RequestBody fileBody = RequestBody.create(MULTIPART_TYPE, file);
-        return testZipFile(bearerToken, categoryId, fileBody);
+        var fileBody = RequestBody.create(MULTIPART_TYPE, file);
+        var part = MultipartBody.Part.createFormData("file", file.getName(), fileBody);
+        return testZipFile(bearerToken, categoryId, part);
     }
 
 
