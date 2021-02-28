@@ -5,6 +5,8 @@ import com.github.johnnyjayjay.codetester.gradle.tasks.ZipSource;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
+import java.io.File;
+
 public class CodeTesterPlugin implements Plugin<Project> {
 
     // TODO: 27/02/2021 log destination dir config
@@ -21,6 +23,7 @@ public class CodeTesterPlugin implements Plugin<Project> {
             task.getPassword().set(extension.getPassword());
             task.getCategory().set(extension.getCategory());
             task.getSourcesZip().set(zipTask.flatMap(ZipSource::getArchiveFile));
+            task.getResultsDir().set(new File(project.getBuildDir(), "codeTester"));
         });
     }
 }
