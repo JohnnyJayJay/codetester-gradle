@@ -59,7 +59,8 @@ public abstract class CodeTester extends DefaultTask {
         System.out.printf("Checking %s with %s...%n", getSourcesZip().get().getAsFile().getName(), getBaseUrl().get());
         var response = client.testZipFile(category.getId(), getSourcesZip().get().getAsFile());
         if (response instanceof FailedCompilerOutput) {
-            System.err.println(((FailedCompilerOutput) response).getOutput());
+            ((FailedCompilerOutput) response).getDiagnostics()
+                    .forEach((file, errors) -> errors.forEach(System.err::println));
             throw new ChecksFailedException("Checks could not be run; compilation failed.");
         } else if (response instanceof SubmissionCheckResult) {
             var result = (SubmissionCheckResult) response;
