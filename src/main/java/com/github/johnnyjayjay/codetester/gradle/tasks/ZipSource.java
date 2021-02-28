@@ -19,8 +19,8 @@ public abstract class ZipSource extends Zip {
                 .getByType(SourceSetContainer.class)
                 .getByName(SourceSet.MAIN_SOURCE_SET_NAME);
         from(mainSource.getAllSource());
-        getArchiveBaseName().set(getProject().getName() + "-source");
-        getArchiveClassifier().set("zip");
+        getArchiveBaseName().set(getProject().getName());
+        getArchiveAppendix().set("source");
         var destination = new File(getProject().getBuildDir(), "sourceDists");
         getDestinationDirectory().set(destination);
     }
