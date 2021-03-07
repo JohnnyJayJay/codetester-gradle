@@ -72,9 +72,12 @@ public abstract class CodeTester extends DefaultTask {
                         .entrySet().stream()
                         .filter((entry) -> anyChecksRun(entry.getValue()))
                         .collect(Collectors.toList());
+                var total = 0;
+                var failed = 0;
                 for (var entry : appliedCheckResults) {
                     var fileName = entry.getKey();
                     var results = entry.getValue();
+                    total += results.size();
                     try (var output = new PrintStream(
                             getResultsDir().get().file(fileName + ".log").getAsFile(),
                             StandardCharsets.UTF_8)) {
@@ -83,8 +86,11 @@ public abstract class CodeTester extends DefaultTask {
                     var failedResults = results.stream()
                             .filter((res) -> res.getResult() == ResultType.FAILED)
                             .collect(Collectors.toList());
+                    failed += failedResults.size();
                     log(System.err, fileName, failedResults);
                 }
+                System.err.printf("%d tests run in %d files, %d successful, %d failed%n",
+                        total, appliedCheckResults.size(), total - failed, failed);
                 throw new ChecksFailedException(
                         "Some checks failed; for the complete results, see the logs at " + getResultsDir().get()
                 );
