@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.github.johnnyjayjay"
-version = "0.1.0"
+version = "0.1.1"
 
 configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_11
