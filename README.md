@@ -48,12 +48,17 @@ plugins {
 ## Configuration
 The plugin provides an extension where you can set the most important things, namely username, password and task name you want to use for the code tester instance.
 ```gradle
+import java.time.Duration
+import java.time.temporal.ChronoUnit
+
 codeTester {
     username.set("YourUserName")
     password.set("YourPassword")
     category.set("Task Category Name")
     // Optionally (https://codetester.ialistannen.de/ by default):
     baseUrl.set("codetesterURL")
+    // Optionally (1 minute by default)
+    readTimeout.set(Duration.of(5, ChronoUnit.MINUTES)) 
 }
 ```
 
