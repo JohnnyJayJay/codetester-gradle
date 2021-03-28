@@ -6,6 +6,8 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
 import java.io.File;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 
 public class CodeTesterPlugin implements Plugin<Project> {
 
@@ -22,6 +24,7 @@ public class CodeTesterPlugin implements Plugin<Project> {
             task.getUsername().set(extension.getUsername());
             task.getPassword().set(extension.getPassword());
             task.getCategory().set(extension.getCategory());
+            task.getReadTimeout().set(extension.getReadTimeout().orElse(Duration.of(1, ChronoUnit.MINUTES)));
             task.getSourcesZip().set(zipTask.flatMap(ZipSource::getArchiveFile));
             task.getResultsDir().set(new File(project.getBuildDir(), "codeTester"));
         });

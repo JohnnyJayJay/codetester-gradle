@@ -6,7 +6,7 @@ import com.github.johnnyjayjay.codetester.gradle.http.model.CheckResponseDeseria
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
-import okhttp3.Request;
+import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -14,6 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.List;
 import java.util.function.Function;
 
@@ -30,11 +31,15 @@ public class CodeTesterClient {
 
     private String accessToken;
 
-    public CodeTesterClient(String baseUrl, String username, String password) throws IOException {
+    public CodeTesterClient(String baseUrl, String username, String password, Duration readTimeout) throws IOException {
         this.username = username;
         this.password = password;
+        var client = new OkHttpClient.Builder()
+                .readTimeout(readTimeout)
+                .build();
         var retrofit =  new Retrofit.Builder()
                 .baseUrl(baseUrl)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create(GSON))
                 .build();
         this.service = retrofit.create(CodeTesterService.class);

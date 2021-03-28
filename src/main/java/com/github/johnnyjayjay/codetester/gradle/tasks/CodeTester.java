@@ -18,6 +18,7 @@ import org.gradle.api.tasks.TaskAction;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -44,12 +45,15 @@ public abstract class CodeTester extends DefaultTask {
     @InputFile
     public abstract RegularFileProperty getSourcesZip();
 
+    public abstract Property<Duration> getReadTimeout();
+
     @OutputDirectory
     public abstract DirectoryProperty getResultsDir();
 
     @TaskAction
     public void executeTask() throws IOException {
-        var client = new CodeTesterClient(getBaseUrl().get(), getUsername().get(), getPassword().get());
+        var client = new CodeTesterClient(getBaseUrl().get(), getUsername().get(),
+                getPassword().get(), getReadTimeout().get());
         var categoryName = getCategory().get();
         System.out.printf("Looking for CodeTester category '%s'%n",  categoryName);
         var category = client.getAllCategories().stream()
