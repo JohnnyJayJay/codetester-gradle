@@ -16,17 +16,6 @@ As an alternative and if you don't want to bother learning or setting up Gradle,
   - [How to set up a Gradle project in IntelliJ](https://www.jetbrains.com/help/idea/gradle.html#convert_project_to_gradle)
 - A [Git Installation](https://git-scm.com/downloads)
 
-### Building
-The plugin is not on a public repository right now, so it is only available by building it yourself.
-
-Instructions (on Windows, run this in PowerShell or git bash): 
-
-```
-$ git clone https://github.com/JohnnyJayJay/codetester-gradle
-$ cd codetester-gradle
-$ ./gradlew publishToMavenLocal
-```
-
 ### Applying
 
 In your settings.gradle(.kts), add: 
@@ -34,7 +23,6 @@ In your settings.gradle(.kts), add:
 pluginManagement {
     repositories {
         mavenCentral()
-        mavenLocal()
     }
 }
 ```
@@ -65,6 +53,16 @@ codeTester {
 
 The two tasks this plugin adds are `zipSource` (of type `ZipSource`) and `codeTester` (of type `CodeTester`). You can register own tasks of these
 types or configure the existing ones (setting a different directory for source zips, excluding/including different files (`edu.kit.informatik.Terminal` is excluded by default), etc.
+
+### Building it Yourself
+
+Instructions (on Windows, run this in PowerShell or git bash): 
+
+```
+$ git clone https://github.com/JohnnyJayJay/codetester-gradle
+$ cd codetester-gradle
+$ ./gradlew publishToMavenLocal
+```
 
 ## Running
 To get test results, simply run the `codeTester` task (either from the command line `./gradlew codeTester` or from your IDE integration). 
