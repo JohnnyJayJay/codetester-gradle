@@ -14,7 +14,6 @@ As an alternative and if you don't want to bother learning or setting up Gradle,
 - [JDK 11](https://adoptopenjdk.net)
 - A [Gradle](https://gradle.org/) project
   - [How to set up a Gradle project in IntelliJ](https://www.jetbrains.com/help/idea/gradle.html#convert_project_to_gradle)
-- A [Git Installation](https://git-scm.com/downloads)
 
 ### Applying
 
@@ -55,6 +54,8 @@ The two tasks this plugin adds are `zipSource` (of type `ZipSource`) and `codeTe
 types or configure the existing ones (setting a different directory for source zips, excluding/including different files (`edu.kit.informatik.Terminal` is excluded by default), etc.
 
 ### Building it Yourself
+
+You will need a [Git Installation](https://git-scm.com/downloads) to build it yourself.
 
 Instructions (on Windows, run this in PowerShell or git bash): 
 
