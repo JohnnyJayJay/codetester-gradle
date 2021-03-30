@@ -1,6 +1,7 @@
 plugins {
     `java-gradle-plugin`
     `maven-publish`
+    id("com.gradle.plugin-publish") version "0.12.0"
 }
 
 group = "com.github.johnnyjayjay"
@@ -20,13 +21,23 @@ dependencies {
     implementation("com.squareup.retrofit2", "retrofit", "2.9.0")
 }
 
-tasks.compileJava
+val desc = "A Gradle plugin to automate remote CodeTester " +
+        "(https://github.com/I-Al-Istannen/SimpleCodeTester) tests."
+
+pluginBundle {
+    vcsUrl = "https://github.com/JohnnyJayJay/codetester-gradle"
+    website = vcsUrl
+    tags = listOf("testing", "codetester", "education")
+    description = desc
+}
 
 gradlePlugin {
     plugins {
-        create("codeTester") {
+        create("CodeTester") {
             id = "com.github.johnnyjayjay.codetester"
             implementationClass = "com.github.johnnyjayjay.codetester.gradle.CodeTesterPlugin"
+            description = desc
+            displayName = "CodeTester"
         }
     }
 }

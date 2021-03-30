@@ -11,6 +11,7 @@ As an alternative and if you don't want to bother learning or setting up Gradle,
 ## Installation
 
 **Prerequisites:**
+- [JDK 11](https://adoptopenjdk.net)
 - A [Gradle](https://gradle.org/) project
   - [How to set up a Gradle project in IntelliJ](https://www.jetbrains.com/help/idea/gradle.html#convert_project_to_gradle)
 - A [Git Installation](https://git-scm.com/downloads)
@@ -41,7 +42,7 @@ pluginManagement {
 In your build.gradle(.kts):
 ```gradle
 plugins {
-    id("com.github.johnnyjayjay.codetester") version "0.1.0"
+    id("com.github.johnnyjayjay.codetester") version "0.2.0"
 }
 ```
 
