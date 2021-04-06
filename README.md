@@ -17,15 +17,6 @@ As an alternative and if you don't want to bother learning or setting up Gradle,
 
 ### Applying
 
-In your settings.gradle(.kts), add: 
-```gradle
-pluginManagement {
-    repositories {
-        mavenCentral()
-    }
-}
-```
-
 In your build.gradle(.kts):
 ```gradle
 plugins {
